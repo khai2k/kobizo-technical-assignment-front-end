@@ -80,10 +80,7 @@ export default function ProductsPage({ searchParams }: ProductsPageProps) {
 
       <div className={styles.content}>
         <aside className={styles.sidebar}>
-          <ProductFilters
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
+          <ProductFilters />
         </aside>
 
         <main className={styles.main}>
@@ -99,7 +96,8 @@ export default function ProductsPage({ searchParams }: ProductsPageProps) {
             <Pagination
               currentPage={currentPage}
               totalPages={Math.ceil(products.length / 12)}
-              onPageChange={handlePageChange}
+              totalItems={products.length}
+              itemsPerPage={12}
             />
           )}
 

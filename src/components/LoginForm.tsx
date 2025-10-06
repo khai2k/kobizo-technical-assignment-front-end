@@ -87,7 +87,7 @@ export default function LoginForm({
 
       <div className={styles.footer}>
         <p className={styles.footerText}>
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <button
             type="button"
             onClick={onSwitchToRegister}

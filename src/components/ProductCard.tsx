@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Product } from "@/lib/api";
 import styles from "./ProductCard.module.css";
 
@@ -19,9 +20,11 @@ export default function ProductCard({
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {product.image_url ? (
-          <img
+          <Image
             src={product.image_url}
             alt={product.name}
+            width={300}
+            height={200}
             className={styles.productImage}
             onError={(e) => {
               // Fallback to placeholder if image fails to load

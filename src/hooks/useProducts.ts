@@ -76,7 +76,7 @@ export function useAddToCart() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (productId: string, quantity: number = 1) => {
+    mutationFn: async ({ productId, quantity = 1 }: { productId: string; quantity?: number }) => {
       // This would be implemented when cart functionality is added
       console.log(
         `Adding product ${productId} to cart with quantity ${quantity}`

@@ -4,13 +4,15 @@ import { mockBlogPosts } from "../utils/test-utils";
 
 // Mock Next.js Link
 jest.mock("next/link", () => {
-  return ({ children, href, ...props }: any) => {
+  const MockedLink = ({ children, href, ...props }: any) => {
     return (
       <a href={href} {...props}>
         {children}
       </a>
     );
   };
+  MockedLink.displayName = "Link";
+  return MockedLink;
 });
 
 describe("BlogPostCard Integration Tests", () => {
