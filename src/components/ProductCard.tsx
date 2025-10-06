@@ -20,7 +20,7 @@ export default function ProductCard({
     <div className={styles.card}>
       <div className={styles.imageContainer}>
         {product.image_url ? (
-          <Image
+          <img
             src={product.image_url}
             alt={product.name}
             width={300}

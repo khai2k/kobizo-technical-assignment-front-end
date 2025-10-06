@@ -3,6 +3,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BlogPost } from "@/lib/api";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 // Query keys
 export const blogKeys = {
   all: ["blog"] as const,
@@ -29,7 +31,7 @@ export function useBlogPosts(filters?: {
       if (filters?.page) params.append("page", filters.page.toString());
       if (filters?.limit) params.append("limit", filters.limit.toString());
 
-      const response = await fetch(`/api/blog?${params.toString()}`);
+      const response = await fetch(`${API_BASE_URL}/api/v1/blog?${params.toString()}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch blog posts");
@@ -47,7 +49,7 @@ export function useBlogPost(slug: string) {
   return useQuery({
     queryKey: blogKeys.detail(slug),
     queryFn: async (): Promise<BlogPost | null> => {
-      const response = await fetch(`/api/blog/${slug}`);
+      const response = await fetch(`${API_BASE_URL}/api/v1/blog/${slug}`);
 
       if (!response.ok) {
         if (response.status === 404) return null;

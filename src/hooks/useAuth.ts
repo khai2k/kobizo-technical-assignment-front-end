@@ -3,6 +3,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { User, LoginRequest, RegisterRequest } from "@/lib/api";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 // Query keys
 export const authKeys = {
   all: ["auth"] as const,
@@ -14,7 +16,7 @@ export function useUser() {
   return useQuery({
     queryKey: authKeys.user(),
     queryFn: async (): Promise<User | null> => {
-      const response = await fetch("/api/auth/me", {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
         credentials: "include",
       });
 
@@ -34,7 +36,7 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: async (credentials: LoginRequest) => {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +64,7 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: async (userData: RegisterRequest) => {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +92,7 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: async () => {
-      const response = await fetch("/api/auth/logout", {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

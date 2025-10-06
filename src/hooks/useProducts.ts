@@ -3,6 +3,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Product } from "@/lib/api";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 // Query keys
 export const productKeys = {
   all: ["products"] as const,
@@ -34,7 +36,7 @@ export function useProducts(filters?: {
       if (filters?.page) params.append("page", filters.page.toString());
       if (filters?.limit) params.append("limit", filters.limit.toString());
 
-      const response = await fetch(`/api/products?${params.toString()}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/products?${params.toString()}`, {
         credentials: "include",
       });
 
@@ -54,7 +56,7 @@ export function useProduct(id: string) {
   return useQuery({
     queryKey: productKeys.detail(id),
     queryFn: async (): Promise<Product | null> => {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/products/${id}`, {
         credentials: "include",
       });
 
